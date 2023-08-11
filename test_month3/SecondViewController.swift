@@ -1,17 +1,13 @@
+
 import UIKit
-import SnapKit
 
-class ViewController: UIViewController {
-
+class SecondViewController: UIViewController {
     private var topImage = UIImageView(image: UIImage(named: "topImage"))
-    private var google = UIImageView(image: UIImage(named: "google"))
-    private var instagram = UIImageView(image: UIImage(named: "instagram"))
-    private var facebook = UIImageView(image: UIImage(named: "facebook"))
 
     private var bgView = UIView()
     private var welcomeLabel: UILabel = {
        let welcomeLabel=UILabel()
-        welcomeLabel.text = "Welcome"
+        welcomeLabel.text = "Register"
         welcomeLabel.font = .boldSystemFont(ofSize: 28)
         welcomeLabel.textAlignment = .center
         welcomeLabel.textColor = .white
@@ -21,12 +17,36 @@ class ViewController: UIViewController {
     
     private var loginLabel: UILabel = {
        let loginLabel=UILabel()
-        loginLabel.text = "Login to your account"
+        loginLabel.text = "Create a new account"
         loginLabel.font = .boldSystemFont(ofSize: 20)
         loginLabel.textAlignment = .center
         loginLabel.textColor = UIColor(red: 196/255, green: 196/255, blue: 196/255, alpha: 1)
         
         return loginLabel
+    }()
+    
+    private var userNameLabel: UILabel = {
+       let userNameLabel=UILabel()
+        userNameLabel.text = "Username"
+        userNameLabel.font = .boldSystemFont(ofSize: 18)
+        userNameLabel.textAlignment = .left
+        userNameLabel.textColor = UIColor(red: 254/255, green: 252/255, blue: 252/255, alpha: 1)
+        
+        return userNameLabel
+    }()
+    
+    private var userNameTF: UITextField = {
+        let userNameTF = UITextField()
+        
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 18, height: 19))
+        userNameTF.leftView = leftPaddingView
+        userNameTF.leftViewMode = .always
+        userNameTF.layer.cornerRadius = 6
+        userNameTF.backgroundColor = UIColor(red: 254/255, green: 252/255, blue: 252/255, alpha: 1)
+        userNameTF.font = UIFont.boldSystemFont(ofSize: 16)
+        userNameTF.placeholder = "Username"
+        
+        return userNameTF
     }()
     
     private var emailLabel: UILabel = {
@@ -51,6 +71,31 @@ class ViewController: UIViewController {
         emailTF.placeholder = "Email"
         
         return emailTF
+    }()
+    
+    
+    private var MobileNumberLabel: UILabel = {
+       let MobileNumberLabel=UILabel()
+        MobileNumberLabel.text = "Mobile Number"
+        MobileNumberLabel.font = .boldSystemFont(ofSize: 18)
+        MobileNumberLabel.textAlignment = .left
+        MobileNumberLabel.textColor = UIColor(red: 254/255, green: 252/255, blue: 252/255, alpha: 1)
+        
+        return MobileNumberLabel
+    }()
+    
+    private var mobileNumberTF: UITextField = {
+        let mobileNumberTF = UITextField()
+        
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 18, height: 19))
+        mobileNumberTF.leftView = leftPaddingView
+        mobileNumberTF.leftViewMode = .always
+        mobileNumberTF.layer.cornerRadius = 6
+        mobileNumberTF.backgroundColor = UIColor(red: 254/255, green: 252/255, blue: 252/255, alpha: 1)
+        mobileNumberTF.font = UIFont.boldSystemFont(ofSize: 16)
+        mobileNumberTF.placeholder = "Mobile Number"
+        
+        return mobileNumberTF
     }()
     
     private var passwordLabel: UILabel = {
@@ -85,15 +130,7 @@ class ViewController: UIViewController {
         return showPasswordButton
     }()
     
-    
-    private let forgotPasswordButton: UIButton = {
-       let forgotPasswordButton = UIButton()
-        forgotPasswordButton.setTitle("Forgot Password?", for: .normal)
-        forgotPasswordButton.setTitleColor(UIColor(red: 234/255, green: 67/255, blue: 53/255, alpha: 1), for: .normal)
-        forgotPasswordButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        return forgotPasswordButton
-    }()
-    
+   
     private let loginBTN: UIButton = {
        let loginBTN = UIButton()
         loginBTN.backgroundColor = UIColor(red: 41/255, green: 182/255, blue: 246/255, alpha: 1)
@@ -104,21 +141,7 @@ class ViewController: UIViewController {
         return loginBTN
     }()
     
-    private let dontHaveAccountLabel: UILabel = {
-        let dontHaveAccountLabel = UILabel ()
-        dontHaveAccountLabel.text = "Don't have account ?"
-        dontHaveAccountLabel.textColor = UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
-        dontHaveAccountLabel.font = .boldSystemFont(ofSize: 16)
-        return dontHaveAccountLabel
-    }()
-    
-    private let createButton: UIButton = {
-       let createButton = UIButton()
-        createButton.setTitle("Create Now", for: .normal)
-        createButton.setTitleColor(UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1), for: .normal)
-        createButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        return createButton
-    }()
+   
     
     override func viewDidLoad() {
         view.backgroundColor = .black
@@ -134,19 +157,21 @@ class ViewController: UIViewController {
         configureWelcomeLabel()
         configureLoginLabel()
         
+        configureUserNameLabel()
+        configureUserNameTF()
+        
         configureEmailLabel()
         configureEmailTF()
+        
+        configureMobileNumberLabel()
+        configureMobileNumberTF()
         
         configurePasswordLabel()
         configurePasswordTF()
         configureShowPassword()
         
-        configureForgotBTN()
-        
-        configureIcons()
-        
+   
         configureLoginBTN()
-        configureDontHaveAccountButton()
     }
     
     
@@ -172,7 +197,7 @@ class ViewController: UIViewController {
     private func configureWelcomeLabel(){
         bgView.addSubview(welcomeLabel)
         welcomeLabel.snp.makeConstraints{ make in
-            make.top.equalTo(bgView).offset(51)
+            make.top.equalTo(bgView)
             make.centerX.equalTo(bgView)
         }
     }
@@ -185,28 +210,62 @@ class ViewController: UIViewController {
         }
     }
     
+    private func configureUserNameLabel(){
+        bgView.addSubview(userNameLabel)
+        userNameLabel.snp.makeConstraints{ make in
+            make.top.equalTo(loginLabel.snp.bottom).offset(25)
+            make.leading.equalTo(bgView).offset(30)
+        }
+    }
+    
+    private func configureUserNameTF(){
+        bgView.addSubview(userNameTF)
+        userNameTF.snp.makeConstraints{ make in
+            make.top.equalTo(userNameLabel.snp.bottom).offset(6)
+            make.leading.trailing.equalTo(bgView).inset(30)
+            make.height.equalTo(48)
+        }
+    }
+
     private func configureEmailLabel(){
         bgView.addSubview(emailLabel)
         emailLabel.snp.makeConstraints{ make in
-            make.top.equalTo(loginLabel.snp.bottom).offset(25)
-            make.leading.equalTo(bgView).offset(30)
+            make.top.equalTo(userNameTF.snp.bottom).offset(6)
+            make.leading.equalTo(userNameTF)
         }
     }
     
     private func configureEmailTF(){
         bgView.addSubview(emailTF)
         emailTF.snp.makeConstraints{ make in
-            make.top.equalTo(emailLabel.snp.bottom).offset(6)
-            make.leading.trailing.equalTo(bgView).inset(30)
+            make.top.equalTo(emailLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalTo(userNameTF)
             make.height.equalTo(48)
         }
     }
-
+    
+    private func configureMobileNumberLabel(){
+        bgView.addSubview(MobileNumberLabel)
+        MobileNumberLabel.snp.makeConstraints{ make in
+            make.top.equalTo(emailTF.snp.bottom).offset(6)
+            make.leading.equalTo(emailTF)
+        }
+    }
+    
+    private func configureMobileNumberTF(){
+        bgView.addSubview(mobileNumberTF)
+        mobileNumberTF.snp.makeConstraints{ make in
+            make.top.equalTo(MobileNumberLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalTo(emailTF)
+            make.height.equalTo(48)
+        }
+    }
+    
     private func configurePasswordLabel(){
         bgView.addSubview(passwordLabel)
         passwordLabel.snp.makeConstraints{ make in
-            make.top.equalTo(emailTF.snp.bottom).offset(6)
-            make.leading.equalTo(emailTF)
+            make.top.equalTo(mobileNumberTF.snp.bottom).offset(6)
+            make.leading.equalTo(mobileNumberTF)
         }
     }
     
@@ -214,11 +273,10 @@ class ViewController: UIViewController {
         bgView.addSubview(passwordTF)
         passwordTF.snp.makeConstraints{ make in
             make.top.equalTo(passwordLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalTo(emailTF)
+            make.leading.trailing.equalTo(mobileNumberTF)
             make.height.equalTo(48)
         }
     }
-    
     private func configureShowPassword(){
         bgView.addSubview(showPasswordButton)
         showPasswordButton.snp.makeConstraints{ make in
@@ -243,29 +301,11 @@ class ViewController: UIViewController {
         
     }
     
-    private func configureForgotBTN(){
-        bgView.addSubview(forgotPasswordButton)
-        forgotPasswordButton.snp.makeConstraints{ make in
-            make.top.equalTo(passwordTF.snp.bottom).offset(7)
-            make.trailing.equalTo(passwordTF)
-        }
-        
-        forgotPasswordButton.addTarget(self, action: #selector(forgotBTNPressed), for: .touchUpInside)
-        
-    }
-    @objc private func forgotBTNPressed() {
-        let vc = self.storyboard?.instantiateViewController(identifier: "ThirdViewController") as! ThirdViewController
-        vc.email = emailTF.text
-        navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
     
     private func configureLoginBTN(){
         bgView.addSubview(loginBTN)
         loginBTN.snp.makeConstraints{ make in
-            make.bottom.equalTo(facebook.snp.top).offset(-87)
-            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(29)
+            make.top.equalTo(passwordTF.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalTo(295)
             make.height.equalTo(48)
@@ -283,61 +323,8 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
-    private func configureIcons(){
-        bgView.addSubview(facebook)
-        facebook.snp.makeConstraints{ make in
-            make.bottom.equalTo(bgView).offset(-80)
-            make.centerX.equalTo(bgView)
-            make.height.equalTo(30)
-            make.width.equalTo(31)
-        }
-        bgView.addSubview(google)
-        google.snp.makeConstraints{ make in
-            make.centerY.equalTo(facebook.snp.centerY)
-            make.trailing.equalTo(facebook.snp.leading).offset(-43)
-            make.height.equalTo(30)
-            make.width.equalTo(31)
-        }
-        bgView.addSubview(instagram)
-        instagram.snp.makeConstraints{ make in
-            make.centerY.equalTo(facebook.snp.centerY)
-            make.leading.equalTo(facebook.snp.trailing).offset(43)
-            make.height.equalTo(30)
-            make.width.equalTo(31)
-
-        }
-    }
-    
-   
-    private func configureDontHaveAccountButton(){
-        bgView.addSubview(dontHaveAccountLabel)
-        dontHaveAccountLabel.snp.makeConstraints{ make in
-            make.top.equalTo(loginBTN.snp.bottom).offset(14)
-            make.leading.equalTo(loginBTN).offset(20)
-        }
-
-        bgView.addSubview(createButton)
-        createButton.snp.makeConstraints{ make in
-            make.centerY.equalTo(dontHaveAccountLabel)
-            make.trailing.equalTo(loginBTN).offset(-20)
-
-        }
-        
-        createButton.addTarget(self, action: #selector(createAccountBTNPressed), for: .touchUpInside)
-
-        
-    }
-    
-    @objc private func createAccountBTNPressed() {
-        let vc = self.storyboard?.instantiateViewController(identifier: "SecondViewController") as! SecondViewController
-        navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
-    
     private func isFilled(tf: UITextField) -> Bool {
+        
         if tf.text?.isEmpty ?? true {
             tf.layer.borderColor = UIColor.red.cgColor
             tf.layer.borderWidth = 1
@@ -346,20 +333,22 @@ class ViewController: UIViewController {
             return false
         } else {
             tf.layer.borderWidth = 0
+            
             return true
         }
         
     }
     
     private func checkFilledFeilds()->Bool{
+        let userName=isFilled(tf: userNameTF)
         let name=isFilled(tf: emailTF)
+        let mobileNumber=isFilled(tf: mobileNumberTF)
         let password = isFilled(tf: passwordTF)
-        if  name && password {
+        
+        if  name && password && mobileNumber && userName{
             return true
         } else {
             return false
         }
     }
-        
 }
-
